@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.12.0">
+    <title>API Reference – Bots v0.1.0</title>
+    <link rel="stylesheet" href="dist/app-88251e7c81.css" />
+    
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="extras">
+
+<div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+
+  
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        Bots
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+  <h1>
+    <small class="visible-xs">Bots v0.1.0</small>
+    API Reference
+  </h1>
+
+  <ul class="summary-links">
+    
+      <li><a href="#modules">Modules</a></li>
+    
+    
+    
+  </ul>
+
+  
+    <section id="modules" class="details-list">
+      <h1 class="section-heading">Modules</h1>
+      <div class="summary">
+        <div class="summary-row">
+  <div class="summary-signature"><a href="Bots.html">Bots</a></div>
+  
+    <div class="summary-synopsis"><p>Модуль <b>Bots</b> - основной модуль, которая является точкой входа приложения.
+В данном модуле происходит запуск корневого <b>RootSupervisor</b>а</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Bots.BotsSupervisor.html">Bots.BotsSupervisor</a></div>
+  
+    <div class="summary-synopsis"><p>Модуль <b>BotsSupervisor</b> предназначен для ведения контроля за работоспособностью ботов.
+Все процессы по созданию, уничтожению, поиска процесса бота по имени и отправка сообщения в этот процесс возложены на этот модуль.
+При создании ботов отслеживается режим работы бота и создаётся соответствующий этому режиму <b>gen_server</b> процесс. 
+Если режим процесса <b>active</b> будет создан процесс с реализацией <b>long-polling</b>. 
+Если режим процесса <b>passive</b> будет создан процесс с использованием <b>webhook</b></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Bots.RootSupervisor.html">Bots.RootSupervisor</a></div>
+  
+    <div class="summary-synopsis"><p>Данный модуль является основным <b>RootSupervisor</b> процессом.
+В зависимости от режима использования бота модуль <b>RootSupervisor</b> запускает процесс <b>BotsSupervisor</b> для работы в режиме <b>active</b> (long-polling) и процесс <b>WebSupervisor</b> для работы в режиме <b>passive</b> (web-сервера)</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Bots.Telegram.BotActive.html">Bots.Telegram.BotActive</a></div>
+  
+    <div class="summary-synopsis"><b>BotActive</b> - модуль с поведением <b>gen_server</b>, т.е. хранит состояние, позволяет обрабатывать команды синхронно и асинхронно.<p>Модуль имеет зацикленный вызов подключения к серверу телеграма.
+Подключение может быть <b>long-polling</b> - в этом случае мы отправляем запрос на сервер телеграма и телеграм держит соединение некоторое время.
+Если в это время у телеграма появились сообщения для нас, то он сразу же отдаёт их нам.
+Если сообщений не появилось за время, указанное в параметрах <b>long-polling</b>, то соединение обрывается. Следующая итерация аналогична</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Bots.Telegram.BotActive.State.html">Bots.Telegram.BotActive.State</a></div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Bots.Telegram.BotPassive.html">Bots.Telegram.BotPassive</a></div>
+  
+    <div class="summary-synopsis"><b>BotPassive</b> - модуль с поведением <b>gen_server</b>. Используется ботами, работающими на <b>webhook</b>.<p>Процессы <b>BotPassive</b> создаются супервизором ботов. Этот процесс может принимать данные от обработчика запросов <b>WebhookProcessor</b>.
+Приняв данные, процесс производит с ними точно такие же действия, как и бот с типом <b>long-polling</b>, за исключением ненадобности запоминания идентификатора блока сообщений.
+То есть, приняв последние сообщения от сервера <b>telegram</b> передает их на обработку</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Bots.Telegram.BotPassive.State.html">Bots.Telegram.BotPassive.State</a></div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Bots.Telegram.Commander.html">Bots.Telegram.Commander</a></div>
+  
+    <div class="summary-synopsis"><p>Модуль <b>Commander</b> откуда генерируется ответ и отправляется на сервер <b>telegram</b>.
+У каждого полученного блока сообщений от <b>processor</b> есть уникальный последовательный идентификатор.
+Его мы инкрементируем после каждой успешной обработки блока сообщений. Это нужно для исключения обработки старых сообщений</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Bots.Telegram.Processor.html">Bots.Telegram.Processor</a></div>
+  
+    <div class="summary-synopsis"><p>Декодирует <b>json</b>-сообщения, делегирует готовые объекты нужному <b>commander</b> и отправляет ответ на сервер <b>telegram</b></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Bots.WebRouter.html">Bots.WebRouter</a></div>
+  
+    <div class="summary-synopsis"><p>Маршрутизатор для ботов, работающих по webhook</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Bots.WebSupervisor.html">Bots.WebSupervisor</a></div>
+  
+    <div class="summary-synopsis"><p>Модуль <b>WebSupervisor</b> предназначен для слежения за входящими сообщениями с сервера <b>telegram</b> посредством <b>webhook</b>.
+Данный модуль начинает работать при запуске приложения</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Bots.WebhookProcessor.html">Bots.WebhookProcessor</a></div>
+  
+</div>
+
+      </div>
+    </section>
+  
+
+  
+
+  
+      <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.12.0),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+        <button class="night-mode-toggle" />
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-21f1a20b9e.js"></script>
+  </body>
+</html>
+

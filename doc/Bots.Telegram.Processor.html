@@ -1,0 +1,260 @@
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.12.0">
+    <title>Bots.Telegram.Processor – Bots v0.1.0</title>
+    <link rel="stylesheet" href="dist/app-88251e7c81.css" />
+    
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="modules">
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+
+  
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        Bots
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">Bots v0.1.0</small>
+        Bots.Telegram.Processor
+        
+        
+      </h1>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Декодирует <b>json</b>-сообщения, делегирует готовые объекты нужному <b>commander</b> и отправляет ответ на сервер <b>telegram</b>.</p>
+<p>Модуль <b>Processor</b> декодирует приходящее в виде <b>json</b>-сообщение от сервера <b>telegram</b> в структуру <b>Bots.Telegram.TelegramResponse<b> в соответствии с официальной документацией Bot API.
+После парсинга структура передаётся в отдельный поток, где передаётся в <b>commander</b>, заданный в опциях бота.
+После получения ответа от <b>commander</b> происходит отправка подготовленных данных на сервер <b>telegram</b>.</p>
+
+        </section>
+      
+
+      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <i class="icon-link"></i>
+            </a>
+            Summary
+          </h1>
+          
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#decode_response_data/2">decode_response_data(data, options)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Декодирование <b>json</b>-данных, пришедших в ответ на запрос методом <b>long-polling</b>.
+Данные декодируются в структуру <b>Map</b>. После успешного декодирования результат отправляется в отдельный поток со списком функций <b>process_messages<b>.
+Более того, этот метод возвращает максимальный идентификатор объекта <b>update</b> среди пришедших.
+Этот метод принимает два входящих параметра: <b>data</b> и <b>options</b></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#decode_webhook_data/2">decode_webhook_data(data, options)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Метод предназначен для декодирование <b>json</b>-данных, пришедших методом <b>webhook</b>.
+Данные декодируются в структуру <b>Map</b>. После успешного декодирования результат отправляется в отдельный поток с функцией <b>process_messages</b></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#prepare_and_send/3">prepare_and_send(commander, update, token)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Метод <b>prepare_and_send</b> является методом подготовки сообщения для отправки. Выполняет получение ответа от <b>commander</b> и передачу его в метод отправки.
+Метод принимает 3 входящих параметра: <b>commander</b>, <b>update</b> и <b>token</b></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#process_messages/2">process_messages(data, options)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Метод для параллельной обработки сообщений. После обработки сообщение передает данные в метод подготовки для отправки сообщений.
+В качестве входящих параметром принимает два переменных: <b>data</b> и <b>options</b></p>
+</div>
+  
+</div>
+
+  </div>
+
+
+          
+
+          
+
+        </section>
+      
+
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <i class="icon-link"></i>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="decode_response_data/2">
+  <div class="detail-header">
+    <a href="#decode_response_data/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">decode_response_data(data, options)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Декодирование <b>json</b>-данных, пришедших в ответ на запрос методом <b>long-polling</b>.
+Данные декодируются в структуру <b>Map</b>. После успешного декодирования результат отправляется в отдельный поток со списком функций <b>process_messages<b>.
+Более того, этот метод возвращает максимальный идентификатор объекта <b>update</b> среди пришедших.
+Этот метод принимает два входящих параметра: <b>data</b> и <b>options</b>.</p>
+<p>Параметр <b>data</b> - это <b>json</b>-данные, полученные посредством <b>getUpdates</b> от сервера <b>telegram</b>.</p>
+<p>Второй параметр <b>options</b> содержит <b>commander</b> и <b>token</b> бота.</p>
+<p>В случае получения ошибочных данных от сервера <b>telegram</b>, метод возвращает соответствующее сообщение <b>”bad response”</b>.
+Если в ответе от сервера <b>telegram</b> пришли валидные данные, но они не имеют новых сообщений, то <b>decode_response_data</b> выдает сообщение <b>”no new message”</b>.</p>
+
+  </section>
+</div>
+<div class="detail" id="decode_webhook_data/2">
+  <div class="detail-header">
+    <a href="#decode_webhook_data/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">decode_webhook_data(data, options)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Метод предназначен для декодирование <b>json</b>-данных, пришедших методом <b>webhook</b>.
+Данные декодируются в структуру <b>Map</b>. После успешного декодирования результат отправляется в отдельный поток с функцией <b>process_messages</b>.</p>
+<p>В качестве входящего параметра принимает переменную <b>data</b> содержащую <b>json</b>-данные.
+Второй параметр <b>options</b> содержит <b>commander</b> и <b>token</b> бота.</p>
+
+  </section>
+</div>
+<div class="detail" id="prepare_and_send/3">
+  <div class="detail-header">
+    <a href="#prepare_and_send/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">prepare_and_send(commander, update, token)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Метод <b>prepare_and_send</b> является методом подготовки сообщения для отправки. Выполняет получение ответа от <b>commander</b> и передачу его в метод отправки.
+Метод принимает 3 входящих параметра: <b>commander</b>, <b>update</b> и <b>token</b>.</p>
+<p>Параметр <b>commander</b> указывает на то, с каким <b>commander</b>ом необходимо работать.</p>
+<p>Параметр <b>update</b> содержит <b>Map</b>-объект сообщения.</p>
+<p>Параметр <b>token</b> содержит соответственно маркер (идентификатор) бота.</p>
+
+  </section>
+</div>
+<div class="detail" id="process_messages/2">
+  <div class="detail-header">
+    <a href="#process_messages/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">process_messages(data, options)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Метод для параллельной обработки сообщений. После обработки сообщение передает данные в метод подготовки для отправки сообщений.
+В качестве входящих параметром принимает два переменных: <b>data</b> и <b>options</b>.</p>
+<p>В <b>options</b> должен быть представлен <b>commander</b> для обработки сообщения и <b>token</b> для отправки ответа.
+Каждое сообщение из массива выполняется в своём потоке.</p>
+<p>Параметр <b>data</b> содержит <b>Map</b>-объект декодированный из <b>json</b>-данных, пришедших с сервера <b>telegram</b>.</p>
+
+  </section>
+</div>
+
+        </section>
+      
+
+      
+
+      
+          <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.12.0),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+        <button class="night-mode-toggle" />
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-21f1a20b9e.js"></script>
+  </body>
+</html>
+

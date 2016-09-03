@@ -1,0 +1,285 @@
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.12.0">
+    <title>Bots.BotsSupervisor – Bots v0.1.0</title>
+    <link rel="stylesheet" href="dist/app-88251e7c81.css" />
+    
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="modules">
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+
+  
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        Bots
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">Bots v0.1.0</small>
+        Bots.BotsSupervisor
+        
+        
+      </h1>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Модуль <b>BotsSupervisor</b> предназначен для ведения контроля за работоспособностью ботов.
+Все процессы по созданию, уничтожению, поиска процесса бота по имени и отправка сообщения в этот процесс возложены на этот модуль.
+При создании ботов отслеживается режим работы бота и создаётся соответствующий этому режиму <b>gen_server</b> процесс. 
+Если режим процесса <b>active</b> будет создан процесс с реализацией <b>long-polling</b>. 
+Если режим процесса <b>passive</b> будет создан процесс с использованием <b>webhook</b>.</p>
+
+        </section>
+      
+
+      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <i class="icon-link"></i>
+            </a>
+            Summary
+          </h1>
+          
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_bot/1">create_bot(bot_spec)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Метод <b>create_bot</b> предназначен для создания процесса бота по переданному типу.
+В качестве входящего параметра принимает спецификацию бота <b>bot_spec</b>.
+Проводит проверку спецификацию на валидность после чего пытается создать процесс запуска бота.
+При создании процесса запуска учитывает такие факторы как: бот с таким именем уже сущетвует (<b>already_present</b>),
+бот с таким именем уже запушен (<b>already_started</b>). В случае обнаружения таких ошибок возвращает соответствующее сообщение с ошибкой.</p>
+<pre><code class="elixir">При успешном создании процесса запуска бота, выдает сообщение &lt;b&gt;ok&lt;/b&gt;</code></pre>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#init/1">init(bots_specs)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Метод <b>init</b> принимает в качестве входящего параметра спецификацию ботов (<b>bots_specs</b>).
+Проводит создание бота по спецификации, которые прошли валидацию</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#prepare_worker_spec/1">prepare_worker_spec(bot_spec)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Данный метод предназначен для проверки на валидность спецификации бота.
+В качестве входящего параметра принимает переменную <b>bot_spec</b> (спецификация бота).
+Спецификация должна содержать кортеж с тремя параметрами (имя бота, режим работы бота, список параметров).
+При не прохождении на валидность метод возвращает соответствующее сообщение - <b>bad_bot_spec</b>.
+В случае успешного прохождения на валидность возвращает сообщение <b>ok</b> со всеми параметрами</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#send_msg_to_worker/2">send_msg_to_worker(name, msg)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Этот метод проводит поиск процесса бота по имени и, в случае нахождения, пытается отправить сообщение в этот процесс.
+Принимает два входящих параметра (<b>name</b> и <b>msg</b>).
+Параметр <b>name</b> - это имя бота, в процесс которого необходимо передать сообщение <b>msg</b>.
+При успешной передачи сообщения возвращает соббщение <b>ok</b>.
+В случае не нахождения процесса бота с именем <b>name</b> возвращает сообщение <b>bot_not_found</b></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#start_link/1">start_link(bots_specs)</a>
+  </div>
+  
+</div>
+
+  </div>
+
+
+          
+
+          
+
+        </section>
+      
+
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <i class="icon-link"></i>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="create_bot/1">
+  <div class="detail-header">
+    <a href="#create_bot/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">create_bot(bot_spec)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Метод <b>create_bot</b> предназначен для создания процесса бота по переданному типу.
+В качестве входящего параметра принимает спецификацию бота <b>bot_spec</b>.
+Проводит проверку спецификацию на валидность после чего пытается создать процесс запуска бота.
+При создании процесса запуска учитывает такие факторы как: бот с таким именем уже сущетвует (<b>already_present</b>),
+бот с таким именем уже запушен (<b>already_started</b>). В случае обнаружения таких ошибок возвращает соответствующее сообщение с ошибкой.</p>
+<pre><code class="elixir">При успешном создании процесса запуска бота, выдает сообщение &lt;b&gt;ok&lt;/b&gt;.</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="init/1">
+  <div class="detail-header">
+    <a href="#init/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">init(bots_specs)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Метод <b>init</b> принимает в качестве входящего параметра спецификацию ботов (<b>bots_specs</b>).
+Проводит создание бота по спецификации, которые прошли валидацию.</p>
+
+  </section>
+</div>
+<div class="detail" id="prepare_worker_spec/1">
+  <div class="detail-header">
+    <a href="#prepare_worker_spec/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">prepare_worker_spec(bot_spec)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Данный метод предназначен для проверки на валидность спецификации бота.
+В качестве входящего параметра принимает переменную <b>bot_spec</b> (спецификация бота).
+Спецификация должна содержать кортеж с тремя параметрами (имя бота, режим работы бота, список параметров).
+При не прохождении на валидность метод возвращает соответствующее сообщение - <b>bad_bot_spec</b>.
+В случае успешного прохождения на валидность возвращает сообщение <b>ok</b> со всеми параметрами.</p>
+
+  </section>
+</div>
+<div class="detail" id="send_msg_to_worker/2">
+  <div class="detail-header">
+    <a href="#send_msg_to_worker/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">send_msg_to_worker(name, msg)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Этот метод проводит поиск процесса бота по имени и, в случае нахождения, пытается отправить сообщение в этот процесс.
+Принимает два входящих параметра (<b>name</b> и <b>msg</b>).
+Параметр <b>name</b> - это имя бота, в процесс которого необходимо передать сообщение <b>msg</b>.
+При успешной передачи сообщения возвращает соббщение <b>ok</b>.
+В случае не нахождения процесса бота с именем <b>name</b> возвращает сообщение <b>bot_not_found</b>.</p>
+
+  </section>
+</div>
+<div class="detail" id="start_link/1">
+  <div class="detail-header">
+    <a href="#start_link/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">start_link(bots_specs)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+
+        </section>
+      
+
+      
+
+      
+          <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.12.0),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+        <button class="night-mode-toggle" />
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-21f1a20b9e.js"></script>
+  </body>
+</html>
+
